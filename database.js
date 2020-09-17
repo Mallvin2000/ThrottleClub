@@ -42,6 +42,7 @@ function resetTables() {
 
 
 function addPost(title, date, author, content, images, callback) {
+    //console.log("Images: " + images);
     let i = 1;
     const template = `($${i++}, $${i++}, $${i++}, $${i++}, $${i++})`
     const values = [title, date, author, content, images]
@@ -56,8 +57,20 @@ function addPost(title, date, author, content, images, callback) {
 }
 
 
+function getPosts(callback) {
+    const query = `SELECT * FROM posts`;
+
+    const client = connect();
+    client.query(query, [], (err, { rows }) => {
+        callback(err, rows);
+        client.end();
+    });
+}
+
+
 
 module.exports = {
     resetTables,
     addPost,
+    getPosts,
 }
