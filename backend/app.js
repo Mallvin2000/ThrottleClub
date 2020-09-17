@@ -18,12 +18,30 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.post('/insert/post', (req, res) => {
-  const { data } = req.body
-  var title = data.title;
-  var date = data.date;
-  var author = data.author;
-  var content = data.content;
-  var images = data.images;
+
+  //console.log("entered");
+  //for testing with test.http json data
+  /*  const { data } = req.body
+   var title = data.title;
+   var date = data.date;
+   var author = data.author;
+   var content = data.content;
+   var images = data.images; */
+  var title = req.body.title;
+  var date = req.body.date;
+  var author = req.body.author;
+  var content = req.body.content;
+  var images = req.body["images[]"];//stored as 'images[]': [ 'images', 'work', 'please' ] in request . body
+  /*
+  //console.log(req.body);
+[Object: null prototype] {
+  title: '111',
+  date: '2020-09-29',
+  author: 'Mallvin Rajamohan',
+  content: '111',
+  'images[]': [ 'images', 'work', 'please' ]
+}
+  */
 
 
   database.addPost(title, date, author, content, images, (err, result) => {
@@ -31,10 +49,22 @@ app.post('/insert/post', (req, res) => {
       res.status(500).send({ "Error": err.detail });
 
     } else {
-      res.json(result);
+      res.json({ result: "Successfully added new post" });
     }
   });
 
+});
+
+
+app.get('/get/posts', (req, res) => {
+
+  database.getPosts((err, result) => {
+    if (err) {
+      res.status(500).send({ "Error": err.detail });
+    } else {
+      res.json(result);//images array is returned as an array
+    }
+  })
 });
 
 

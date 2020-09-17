@@ -11,3 +11,36 @@ Content-Type: application/json
             }
 }
 //WORKS!
+
+
+###
+POST  http://localhost:3000/insert/post HTTP/1.1 
+Content-Type: application/json
+
+{
+    "data": {
+                "title": "Bajaj Pulsar ns200",
+                "date": "17-9-2020",
+                "author": "Mallvin",
+                "content": "
+                    <h1>Bajaj Pulsar NS200 Review</h1>
+                    <h2>Looking for a 2B bike?</h2>
+                    <div class=\"main-content\">
+                    <p>Some of the bikes i have short listed are:</p>
+                    <ul>
+                        <li>Bajaj Pulsar NS200</li>
+                        <li>Yamaha MT 15</li>
+                        <li>Yamaha FZ 16</li>
+                        <li>Yamaha R15</li>
+                        <li>Honda CB190R</li>
+                    </ul>
+                    </div>
+                ",
+                "images": ["images/1", "images/2"]
+            }
+}
+
+
+###
+GET http://localhost:3000/get/posts HTTP/1.1
+Content-Type: application/json
