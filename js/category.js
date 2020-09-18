@@ -1,8 +1,7 @@
 
-
-function getPostsFromBackend() {
+function getPostsInCategoryFromBackend(categoryId) {
     var settings = {
-        "url": "http://localhost:3000/get/posts",
+        "url": "http://localhost:3000/get/category/posts/" + categoryId,
         "method": "GET",
         "timeout": 0,
         "headers": {
@@ -12,11 +11,10 @@ function getPostsFromBackend() {
 
     $.ajax(settings).done(function (response) {
         console.log(response);
+        $(".main-section-title").append(`<h2 class="text-center">Category: ${response[0].categoryname}</h2>`);//append as a child in selected tag
         for (let i = 0; i < response.length; i++) {
             $("#posts-wrapper").append("<div class=\"post post" + i + " col-sm-5\"></div>");//append as a child in selected tag
             $(".post" + i).append("<div class=\"coverImage\"><img class=\"mx-auto d-block img-fluid\" src=\"images/bike.jpg\" width=\"450\" height=\"150\"></div>");//mx-auto d-block these classes are from bootstrap to center the image
-            //$(".post" + i).append("<div><p>Title: " + response[i].title + "</p></div>");//display property (title) of object in reponse array
-            //$(".post" + i).append("<div><p>Date: " + response[i].date + "</p></div>");
             $(".post" + i).append(`
                 <div class=\"details\">
                     <div class="title"><h4 class="text-center">${response[i].title}</h4></div>
@@ -29,29 +27,22 @@ function getPostsFromBackend() {
                     </div>
                 </div>
             `);
-            //$(".post" + i).append("<div><p>Author: " + response[i].author + "</p></div>");
             $(".post" + i).append("<div><button id=" + response[i].postid + "-update class=\"btn btn-primary\">View Post</button></div>");
             $("#" + response[i].postid + "-update").on("click", (event) => {
                 //console.log("Viewing Post");
                 window.location.href = "post.html?postId=" + response[i].postid + "";
+
             })
-
-
-
-            /*  $(".vehicles").append("<div style=\"border:solid red 1px; margin-top: 3%;\" class=\"vehicle" + i + " col-sm-4\"></div>");//append as a child in selected tag. each object takes 6 out of the row max 12 grid. I.E 2 vehicles per row
-             $(".vehicle" + i).append("<div class=\"vehicleimage img-responsive\"><img src=\"images/" + response[i].imagename + "\" width=\"300\" height=\"150\"></div>");
-             $(".vehicle" + i).append("<div class=\"text-center vehicle-name-heading\">Name: " + response[i].vehiclename + "</div>");//display property (vehicleName) of object in reponse array
-             $(".vehicle" + i).append("<hr>");
-             $(".vehicle" + i).append("<div class=\"vehicle-info\"><p>Brand: " + response[i].brand + "</p><p>Price: $" + response[i].vehicleprice + "</p></div>");
-             //$(".vehicle" + i).append("");
-             $(".vehicle" + i).append("<button class=\"view-more btn btn-primary\"><a href=\"vehicleid" + response[i].vehicleid + ".html\">View</a></button> <button id=\"" + response[i].vehicleid + "-specs\" class=\"btn-specs view-specs btn btn-primary\">See Specifications</button>"); */
         }
-    })
-        .fail((response) => {
-            alert("ERROR");
-        });
+    });
 }
 
+
+function registerCategoryId() {
+    var categoryId = window.location.href.split("categoryId=")[1];
+    //console.log(categoryId);
+    getPostsInCategoryFromBackend(categoryId)
+}
 
 
 function getCategoriesFromBackend() {
@@ -79,8 +70,7 @@ function getCategoriesFromBackend() {
 }
 
 
-
 $(document).ready(function () {//run when document is populated
-    getPostsFromBackend();
+    registerCategoryId();
     getCategoriesFromBackend();
 });

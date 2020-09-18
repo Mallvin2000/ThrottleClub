@@ -24,7 +24,7 @@ function sendDataToBackend(event) {
  */
 
     var images = checkImages();
-
+    var categoryId = parseInt($("#category-select option:selected").val());
     var settings = {
         "url": "http://localhost:3000/insert/post",
         "method": "POST",
@@ -37,13 +37,16 @@ function sendDataToBackend(event) {
             "date": $('#txt_date').val(),
             "author": $('#txt_author').val(),
             "content": $('#txt_content').val(),
-            "images": images
+            "subContent": $('#txt_sub_content').val(),
+            "images": images,
+            "categoryId": categoryId
         }
     };
 
     $.ajax(settings).done(function (response) {
         console.log(response);
         alert("Added sucessfully")
+        location.reload();
     })
         .fail((response) => {
             alert("ERROR");
