@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.post('/insert/post', (req, res) => {
-
+//console.log(req.body);
   //console.log("entered");
   //for testing with test.http json data
   /*  const { data } = req.body
@@ -31,7 +31,9 @@ app.post('/insert/post', (req, res) => {
   var date = req.body.date;
   var author = req.body.author;
   var content = req.body.content;
+  var subContent = req.body.subContent;
   var images = req.body["images[]"];//stored as 'images[]': [ 'images', 'work', 'please' ] in request . body
+  var categoryId = req.body.categoryId;
   /*
   //console.log(req.body);
 [Object: null prototype] {
@@ -43,8 +45,11 @@ app.post('/insert/post', (req, res) => {
 }
   */
 
+  //console.log("Images: " + images);
 
-  database.addPost(title, date, author, content, images, (err, result) => {
+
+
+  database.addPost(title, date, author, content, subContent, images, categoryId, (err, result) => {
     if (err) {
       res.status(500).send({ "Error": err.detail });
 
@@ -62,11 +67,48 @@ app.get('/get/posts', (req, res) => {
     if (err) {
       res.status(500).send({ "Error": err.detail });
     } else {
-      res.json(result);//images array is returned as an array
+      res.json(result);
     }
   })
 });
 
+
+app.get('/get/post/:postId', (req, res) => {
+  var postId = req.params.postId;
+
+  database.getPost(postId, (err, result) => {
+    if (err) {
+      res.status(500).send({ "Error": err.detail });
+    } else {
+      res.json(result);
+    }
+  })
+});
+
+
+app.get('/get/categories', (req, res) => {
+
+  database.getCategories((err, result) => {
+    if (err) {
+      res.status(500).send({ "Error": err.detail });
+    } else {
+      res.json(result);
+    }
+  })
+});
+
+
+app.get('/get/category/posts/:categoryId', (req, res) => {
+  var categoryId = req.params.categoryId;
+
+  database.getPostsInCategory(categoryId, (err, result) => {
+    if (err) {
+      res.status(500).send({ "Error": err.detail });
+    } else {
+      res.json(result);
+    }
+  })
+});
 
 
 
