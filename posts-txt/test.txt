@@ -1,0 +1,12 @@
+<h1>2B bike shortlist</h1>
+<h2>Looking for a 2B bike?</h2>
+<div class=\"main-content\">
+<p>Some of the bikes i have short listed are:</p>
+<ul>
+<li>Bajaj Pulsar NS200</li>
+<li>Yamaha MT 15</li>
+<li>Yamaha FZ 16</li>
+<li>Yamaha R15</li>
+<li>Honda CB190R</li>
+</ul>
+</div>

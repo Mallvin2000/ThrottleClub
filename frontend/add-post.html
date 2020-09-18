@@ -25,6 +25,21 @@
 
 <body>
 
+    <header class="main-header">
+        <nav id="main-nav" class="navbar navbar-expand-sm bg-light navbar-light">
+            <!--<a class="navbar-brand" href="#"><img class="img-fluid" src="images/rsz_2svlogosmaller.png" alt="Logo"></a>-->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="nav-list collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="add-post.html">Add post</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
     <main>
         <section class="add-post">
             <div class="section-header">
@@ -50,7 +65,19 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="txt_content">Content:</label>
+                            <label for="wc">Category:</label>
+                            <select id="category-select" class="form-control">
+                                <option selected disabled>Choose...</option>
+                                <option value="1">Learning How To Ride</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="txt_sub_content">Sub Content:</label>
+                            <textarea class="form-control" id="txt_sub_content" rows="6"></textarea>
+                            <small id="emailHelp" class="form-text text-muted">A glimpse of what the article is about. Written in plain text</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="txt_content">Main Content:</label>
                             <textarea class="form-control" id="txt_content" rows="13"></textarea>
                             <small id="emailHelp" class="form-text text-muted">Written with preferred formattimg in
                                 html</small>

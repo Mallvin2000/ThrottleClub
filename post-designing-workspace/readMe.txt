@@ -1,0 +1,1 @@
+This is where i write the post out in html so that its easier to design. Once done, copy and paste this code in the content section of the insert post page.
