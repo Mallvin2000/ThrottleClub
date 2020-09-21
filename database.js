@@ -237,14 +237,26 @@ function addCategory(name, callback) {
 }
 
 
-function updatePost(title, date, author, content, subContent, categoryId, callback) {
-    const values = [title, date, author, content, subContent, categoryId]
-    const query = `UPDATE posts SET title = $1, date = $2, author = $3, content = $4, subContent = $5, categoryId = $6`;
+function updatePost(postId, title, date, author, content, subContent, categoryId, callback) {
+    const values = [title, date, author, content, subContent, categoryId, postId]
+    const query = `UPDATE posts SET title = $1, date = $2, author = $3, content = $4, subContent = $5, categoryId = $6 WHERE postId = $7`;
     console.log(values, query);
 
     const client = connect();
     client.query(query, values, (err, result) => {
         callback(err, result);
+        client.end();
+    });
+}
+
+
+function deletePost(postId, callback) {
+    const query = `DELETE FROM posts WHERE postId = $1;`
+    //console.log(query);
+    const client = connect();
+    client.query(query, [postId], (err, { rows }) => {
+        //console.log(rows);
+        callback(err, rows);
         client.end();
     });
 }
@@ -263,5 +275,6 @@ module.exports = {
     addCategory,
     getPosts2,
     updatePost,
+    deletePost,
     
 }
