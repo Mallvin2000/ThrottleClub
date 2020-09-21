@@ -68,7 +68,7 @@ app.post('/login', (req, res) => {
 
 
 app.post('/insert/post', verifyToken, (req, res) => {
-//console.log(req.body);
+  //console.log(req.body);
   //console.log("entered");
   //for testing with test.http json data
   /*  const { data } = req.body
@@ -181,22 +181,39 @@ app.get('/get/category/posts/:categoryId', (req, res) => {
 
 
 app.post('/insert/category', verifyToken, (req, res) => {
-  
-    var name = req.body.name
-   
-  
-  
-  
-    database.addCategory(name, (err, result) => {
-      if (err) {
-        res.status(500).send({ "Error": err.detail });
-  
-      } else {
-        res.json({ result: "Successfully added new category" });
-      }
-    });
-  
+  var name = req.body.name
+
+  database.addCategory(name, (err, result) => {
+    if (err) {
+      res.status(500).send({ "Error": err.detail });
+
+    } else {
+      res.json({ result: "Successfully added new category" });
+    }
   });
+
+});
+
+
+
+app.put('/update/post', verifyToken, (req, res) => {
+  var title = req.body.title;
+  var date = req.body.date;
+  var author = req.body.author;
+  var content = req.body.content;
+  var subContent = req.body.subContent;
+  var categoryId = req.body.categoryId;
+
+  database.updatePost(title, date, author, content, subContent, categoryId, (err, result) => {
+    if (err) {
+      res.status(500).send({ "Error": err.detail });
+
+    } else {
+      res.json({ result: "Successfully updated post" });
+    }
+  });
+
+});
 
 
 
