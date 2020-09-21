@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const database = require("./database");
 const cors = require('cors');
+var verifyToken = require("./Auth/verifyToken");
 
 
 var app = express();
@@ -17,7 +18,56 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.post('/insert/post', (req, res) => {
+
+app.post('/insert/user', (req, res) => {
+  var username = req.body.username;
+  var password = req.body.password;
+
+  database.checkForDuplicateUsername(username, (err, result) => {
+    if (err) {
+      res.status(500).send({ "Error": err });
+    } else if (result > 0) {
+      res.status(400).json({
+        "error": "Duplicate Entry, Username exists",
+        "code": "400"
+      })
+    } else {
+      database.addUser(username, password, (err, result) => {
+        if (err) {
+          res.status(500).send({ "Error": err.detail });
+
+        } else {
+          res.json({ result: "Successfully Created New Admin User" });
+        }
+      });
+    }
+  });
+});
+
+
+
+
+app.post('/login', (req, res) => {
+  //console.log("login received");
+  var username = req.body.username;
+  var password = req.body.password;
+  //console.log(username, password);
+
+  database.adminLogin(username, password, (error, result) => {
+    if (error) {
+      res.status(500).send({ "Error": error.detail });
+
+    } else {
+      //console.log(result);
+      res.json(result);
+    }
+    //console.log(result);
+
+  });
+});
+
+
+app.post('/insert/post', verifyToken, (req, res) => {
 //console.log(req.body);
   //console.log("entered");
   //for testing with test.http json data
@@ -73,6 +123,24 @@ app.get('/get/posts', (req, res) => {
 });
 
 
+app.get('/get/posts2', (req, res) => {
+  const { postId, date, categoryId, limit, offset } = req.query;//extract from the get URL
+  /* var postId = req.body.postId;
+  var date = req.body.date;
+  var categoryId = req.body.categoryId;
+  var limit = req.body.limit;
+  var offset = req.body.offset; */
+
+  database.getPosts2(postId, date, categoryId, limit, offset, (err, result) => {
+    if (err) {
+      res.status(500).send({ "Error": err.detail });
+    } else {
+      res.json(result);
+    }
+  })
+});
+
+
 app.get('/get/post/:postId', (req, res) => {
   var postId = req.params.postId;
 
@@ -109,6 +177,26 @@ app.get('/get/category/posts/:categoryId', (req, res) => {
     }
   })
 });
+
+
+
+app.post('/insert/category', verifyToken, (req, res) => {
+  
+    var name = req.body.name
+   
+  
+  
+  
+    database.addCategory(name, (err, result) => {
+      if (err) {
+        res.status(500).send({ "Error": err.detail });
+  
+      } else {
+        res.json({ result: "Successfully added new category" });
+      }
+    });
+  
+  });
 
 
 
