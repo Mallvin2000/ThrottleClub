@@ -197,6 +197,7 @@ app.post('/insert/category', verifyToken, (req, res) => {
 
 
 app.put('/update/post', verifyToken, (req, res) => {
+  var postId = req.body.id;
   var title = req.body.title;
   var date = req.body.date;
   var author = req.body.author;
@@ -204,12 +205,28 @@ app.put('/update/post', verifyToken, (req, res) => {
   var subContent = req.body.subContent;
   var categoryId = req.body.categoryId;
 
-  database.updatePost(title, date, author, content, subContent, categoryId, (err, result) => {
+  database.updatePost(postId, title, date, author, content, subContent, categoryId, (err, result) => {
     if (err) {
       res.status(500).send({ "Error": err.detail });
 
     } else {
       res.json({ result: "Successfully updated post" });
+    }
+  });
+
+});
+
+
+
+app.delete('/delete/post/:id', verifyToken, (req, res) => {
+  //var userid = req.body.userid;
+  var postId = req.params.id;
+
+  database.deletePost(postId, (err, result) => {
+    if (err) {
+      res.status(500).send({ "Error": err.detail });
+    } else {
+      res.json({result: "Successfully deleted"});
     }
   });
 
