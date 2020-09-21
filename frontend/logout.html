@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Logout</title>
+
+    <script>
+        localStorage.removeItem('token');//clear the token from local storage
+        window.location.href = "index.html";//redirect user to index/login page after clearing token
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

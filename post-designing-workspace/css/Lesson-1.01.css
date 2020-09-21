@@ -1,0 +1,19 @@
+.paragraph1 {
+    margin-top: 5%;
+}
+
+
+.inner-section {
+    /* width: 60%;
+    margin: 0 auto 0 auto; */
+}
+
+
+.image-container {
+    margin-top: 5%;
+}
+
+
+.image-container img {
+    border: 1px solid black;
+}
