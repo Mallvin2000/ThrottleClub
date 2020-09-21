@@ -124,6 +124,7 @@ function updateDataInBackend(event) {
             "Authorization": "Bearer " + localStorage["token"]
         },
         "data": {
+            "id": $("#txt_id").val(),
             "title": $("#txt_title").val(),
             "date": $("#txt_date").val(),
             "author": $("#txt_author").val(),
@@ -136,6 +137,7 @@ function updateDataInBackend(event) {
 
     $.ajax(settings).done(function (response) {
         console.log(response);
+        location.reload();
         //populateTable(response)
     });
 }
@@ -153,11 +155,11 @@ function populateOptions(data) {
                 console.log("Clicked");
                 $(".modal-body").append(`<p>Are you sure you want to DELETE this post?</p>`)
                 $(".modal-body").append(`<button id="delete-button-${data[i].postid}" type="submit" class="btn btn-danger">DELETE</button>`)
-                $(`#delete-button-${data[i].squatid}`).on("click", (event) => {
+                $(`#delete-button-${data[i].postid}`).on("click", (event) => {
                     console.log("deleting" + data[i].postid);
 
                     var settings = {
-                        "url": "https://strength-visualiser.herokuapp.com/squat/delete/" + data[i].squatid,
+                        "url": "http://localhost:3000/delete/post/" + data[i].postid,
                         "method": "DELETE",
                         "timeout": 0,
                         "headers": {
@@ -204,6 +206,12 @@ function populateOptions(data) {
                         //console.log(month); 
 
                         $(".modal-body").append(`<form id="update-post-${response[i].postid}" method="POST">
+                        <div class="form-group">
+                            <div class="form-group col-md-3">
+                                <label for="txt_weight">post ID:</label>
+                                <input disabled type="number" class="form-control" id="txt_id" value="${response[i].postid}" >
+                            </div>
+                        </div>
                             <div class="form-group">
                                 <label for="txt_title">Title:</label>
                                 <input type="text" class="form-control" id="txt_title" placeholder="Enter title of post" value=${response[i].title}>
