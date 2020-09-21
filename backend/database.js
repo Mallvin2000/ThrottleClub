@@ -237,6 +237,19 @@ function addCategory(name, callback) {
 }
 
 
+function updatePost(title, date, author, content, subContent, categoryId, callback) {
+    const values = [title, date, author, content, subContent, categoryId]
+    const query = `UPDATE posts SET title = $1, date = $2, author = $3, content = $4, subContent = $5, categoryId = $6`;
+    console.log(values, query);
+
+    const client = connect();
+    client.query(query, values, (err, result) => {
+        callback(err, result);
+        client.end();
+    });
+}
+
+
 module.exports = {
     addUser,
     adminLogin,
@@ -248,6 +261,7 @@ module.exports = {
     getPostsInCategory,
     checkForDuplicateUsername,
     addCategory,
-    getPosts2
+    getPosts2,
+    updatePost,
     
 }

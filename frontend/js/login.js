@@ -21,7 +21,7 @@ function sendDataToBackend(event) {
             console.log("Invalid username/password");
         } */
         localStorage["token"] = response.token;//store token value into the browsers cookies/storage
-        window.location.href = "admin-dashboard.html.html";//transfer user by adding it to the url bar. changes the url and takes us to that page
+        window.location.href = "admin-dashboard.html";//transfer user by adding it to the url bar. changes the url and takes us to that page
     })
     .fail((response) => {
         $('#error-msg').html(`<p>Invalid username/password</p>`);//when backend returns a error when pass/username combo doesnt exist
