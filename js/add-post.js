@@ -30,7 +30,8 @@ function sendDataToBackend(event) {
         "method": "POST",
         "timeout": 0,
         "headers": {
-            "Content-Type": "application/x-www-form-urlencoded"
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Authorization": "Bearer " + localStorage["token"]
         },
         "data": {
             "title": $('#txt_title').val(),

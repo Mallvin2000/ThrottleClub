@@ -1,0 +1,41 @@
+.contents {
+    margin-top: 5%;
+}
+
+#user-control {
+ /* border: 1px solid black; */
+ border-right: 0.5px solid black;
+}
+
+#content-management {
+    /* border: 1px solid red; */
+    border-right: 0.5px solid black;
+}
+
+.section-title {
+    margin-bottom: 5%;
+}
+
+.options-list ul {
+    list-style: none;
+    /* border: 1px solid green; */
+    /* margin: 0 auto 0 auto; */
+}
+
+.options-list ul li a {
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.options-list ul li {
+    margin-bottom: 3%;
+    text-align: center;/* best way i can think of now to center the list items instead of making use of width and auto margin*/
+}
+
+
+/* .inner-section {
+    width: 50%;
+    margin: 0 auto 0 auto;
+} */
