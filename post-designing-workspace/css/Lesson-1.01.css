@@ -9,6 +9,10 @@
 }
 
 
+.sub-headline {
+    margin-top: 2%;
+}
+
 .image-container {
     margin-top: 5%;
 }
@@ -16,4 +20,35 @@
 
 .image-container img {
     border: 1px solid black;
+}
+
+
+.post-details {
+    /* border: 1px solid red; */
+    margin-top: 2%;
+}
+
+
+.post-details .author {
+    /* text-align: center; */
+}
+
+
+.post-details .date {
+    /* text-align: center; */
+}
+
+
+.paragraph {
+    margin-bottom: 10%;
+}
+
+
+.heading {
+    margin-bottom: 2%;
+}
+
+
+.controls-lists {
+    margin-top: 3%;
 }
