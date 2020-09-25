@@ -56,3 +56,23 @@
 .lesson-pre-ride-check {
     margin-top: 5%;
 }
+
+.clutch h4 {
+    margin-top: 4%;
+}
+
+
+.throttle h4 {
+    margin-top: 4%;
+}
+
+.brakes h4 {
+    margin-top: 4%;
+}
+
+
+.not-emphasise {
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 17px;
+}
