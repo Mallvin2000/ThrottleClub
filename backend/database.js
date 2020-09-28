@@ -160,9 +160,17 @@ function addPost(title, date, author, content, subContent, images, categoryId, c
 }
 
 
-function getPosts(callback) {
-    const query = `SELECT * FROM posts ORDER BY date desc`;// get all the posts orderd by latest first
+function getPosts(order, callback) {
+    order = parseInt(order);
+    var orderQuery;
+    if (order == 1) {
+        orderQuery = 'ORDER BY date desc';//latest
+    } else if (order == 2) {
+        orderQuery = 'ORDER BY date asc';//oldest
+    }
 
+    const query = `SELECT * FROM posts ${orderQuery}`;// get all the posts orderd by latest first
+    console.log(query);
     const client = connect();
     client.query(query, [], (err, { rows }) => {
         callback(err, rows);

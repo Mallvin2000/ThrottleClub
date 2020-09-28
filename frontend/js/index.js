@@ -1,8 +1,17 @@
+const paginationQuery = {
+    order: 1
+}
+
+const paginationFunction = {
+    changeOrder: function (newOrder) {
+        paginationQuery["order"] = newOrder;
+    }
+}
 
 
 function getPostsFromBackend() {
     var settings = {
-        "url": "http://localhost:3000/get/posts",
+        "url": "http://localhost:3000/get/posts?order="+paginationQuery.order,
         "method": "GET",
         "timeout": 0,
         "headers": {
@@ -80,7 +89,24 @@ function getCategoriesFromBackend() {
 
 
 
+function paginate(event) {
+    console.log('Change detected');
+    const fn = $(this).attr("fn");
+    const value = $(this).attr("value") || $(this).val();//this or operation says if the first is nothing, take the second value instead
+    paginationFunction[fn](value);
+    $( ".post" ).remove();
+    getPostsFromBackend();
+}
+
+
+function registerPaginationForm() {
+    $('#sort-order-select').change(paginate)
+}
+
+
+
 $(document).ready(function () {//run when document is populated
     getPostsFromBackend();
     getCategoriesFromBackend();
+    registerPaginationForm();
 });
