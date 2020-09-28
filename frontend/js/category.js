@@ -1,4 +1,5 @@
 
+
 function getPostsInCategoryFromBackend(categoryId) {
     var settings = {
         "url": "http://localhost:3000/get/category/posts/" + categoryId,
@@ -8,13 +9,13 @@ function getPostsInCategoryFromBackend(categoryId) {
             "Content-Type": "application/x-www-form-urlencoded"
         }
     };
-
     $.ajax(settings).done(function (response) {
+        console.log("categories");
         console.log(response);
         $(".main-section-title").append(`<h2 class="text-center">Category: ${response[0].categoryname}</h2>`);//append as a child in selected tag
         for (let i = 0; i < response.length; i++) {
             $("#posts-wrapper").append("<div class=\"post post" + i + " col-sm-5\"></div>");//append as a child in selected tag
-            $(".post" + i).append("<div class=\"coverImage\"><img class=\"mx-auto d-block img-fluid\" src=\"images/bike.jpg\" width=\"450\" height=\"150\"></div>");//mx-auto d-block these classes are from bootstrap to center the image
+            $(".post" + i).append("<div class=\"coverImage\"><img class=\"mx-auto d-block img-fluid\" src=\"images/" + response[i].coverimage + "\" width=\"450\" height=\"150\"></div>");//mx-auto d-block these classes are from bootstrap to center the image
             $(".post" + i).append(`
                 <div class=\"details\">
                     <div class="title"><h4 class="text-center">${response[i].title}</h4></div>

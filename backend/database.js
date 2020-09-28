@@ -21,7 +21,7 @@ function resetTables() {
     `;
 
 
-    const query2 = `
+    /* const query2 = `
         CREATE TABLE posts (
             postId SERIAL PRIMARY KEY,
             title varchar(200) NOT NULL,
@@ -30,6 +30,21 @@ function resetTables() {
             content TEXT NOT NULL,
             subContent TEXT NOT NULL,
             images TEXT [],
+            categoryId INT REFERENCES category (categoryId)
+        );
+    `; */
+
+
+
+    const query2 = `
+        CREATE TABLE posts (
+            postId SERIAL PRIMARY KEY,
+            title varchar(200) NOT NULL,
+            date varchar(10) NOT NULL,
+            author varchar(100) NOT NULL,
+            content TEXT NOT NULL,
+            subContent TEXT NOT NULL,
+            coverImage TEXT NOT NULL,
             categoryId INT REFERENCES category (categoryId)
         );
     `;
@@ -123,7 +138,7 @@ function addPost(title, date, author, content, subContent, images, categoryId, c
     let i = 1;
     const template = `($${i++}, $${i++}, $${i++}, $${i++}, $${i++}, $${i++}, $${i++})`
     const values = [title, date, author, content, subContent, images, categoryId]
-    const query = `INSERT INTO posts (title, date, author, content, subContent, images, categoryId) VALUES ${template}`;
+    const query = `INSERT INTO posts (title, date, author, content, subContent, coverImage, categoryId) VALUES ${template}`;
     console.log(values, query);
 
     const client = connect();
@@ -212,7 +227,7 @@ function getCategories(callback) {
 
 function getPostsInCategory(categoryId, callback) {
     //const query = `SELECT * FROM posts WHERE categoryId = $1;`;
-    const query = `SELECT P.postId, P.title, P.date, P.author, P.content, P.subContent, C.name AS categoryName FROM posts P INNER JOIN category C On P.categoryId = $1 and P.categoryId = C.categoryId ORDER BY date desc;`;//joining posts and category table
+    const query = `SELECT P.postId, P.title, P.date, P.author, P.content, P.subContent, P.coverImage, C.name AS categoryName FROM posts P INNER JOIN category C On P.categoryId = $1 and P.categoryId = C.categoryId ORDER BY date desc;`;//joining posts and category table
 
     const client = connect();
     client.query(query, [categoryId], (err, { rows }) => {

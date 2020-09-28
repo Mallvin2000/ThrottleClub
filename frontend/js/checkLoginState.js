@@ -36,7 +36,7 @@ function showLoggedInNavBar() {
 function showNotLoggedInNavBar() {
     $("#main-nav").empty();//to clear what ever is appended . like refreshing the page
     var html = `
-        <!--<a class="navbar-brand" href="#"><img class="img-fluid" src="images/rsz_2svlogosmaller.png" alt="Logo"></a>-->
+        <!--<a class="navbar-brand" href="#"><img class="img-fluid" src="images/throttleClubLogo.png" alt="Logo"></a>-->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>

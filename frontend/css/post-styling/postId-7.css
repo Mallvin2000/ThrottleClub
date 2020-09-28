@@ -1,0 +1,78 @@
+.paragraph1 {
+    margin-top: 5%;
+}
+
+
+.inner-section {
+    /* width: 60%;
+    margin: 0 auto 0 auto; */
+}
+
+
+.sub-headline {
+    margin-top: 2%;
+}
+
+.image-container {
+    margin-top: 5%;
+}
+
+
+.image-container img {
+    border: 1px solid black;
+}
+
+
+.post-details {
+    /* border: 1px solid red; */
+    margin-top: 2%;
+}
+
+
+.post-details .author {
+    /* text-align: center; */
+}
+
+
+.post-details .date {
+    /* text-align: center; */
+}
+
+
+.paragraph {
+    margin-bottom: 10%;
+}
+
+
+.heading {
+    margin-bottom: 2%;
+}
+
+
+.controls-lists {
+    margin-top: 3%;
+}
+
+.lesson-pre-ride-check {
+    margin-top: 5%;
+}
+
+.clutch h4 {
+    margin-top: 4%;
+}
+
+
+.throttle h4 {
+    margin-top: 4%;
+}
+
+.brakes h4 {
+    margin-top: 4%;
+}
+
+
+.not-emphasise {
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 17px;
+}
