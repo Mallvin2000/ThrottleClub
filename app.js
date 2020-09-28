@@ -112,8 +112,8 @@ app.post('/insert/post', verifyToken, (req, res) => {
 
 
 app.get('/get/posts', (req, res) => {
-
-  database.getPosts((err, result) => {
+const {order} = req.query
+  database.getPosts(order, (err, result) => {
     if (err) {
       res.status(500).send({ "Error": err.detail });
     } else {
