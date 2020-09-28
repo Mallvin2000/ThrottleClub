@@ -233,6 +233,37 @@ app.delete('/delete/post/:id', verifyToken, (req, res) => {
 });
 
 
+app.get('/get/comments', (req, res) => {
+
+  database.getAllComments((err, result) => {
+    if (err) {
+      res.status(500).send({ "Error": err.detail });
+    } else {
+      res.json(result);
+    }
+  })
+});
+
+
+app.post('/insert/comment', (req, res) => {
+  var name = req.body.name;
+  var comment = req.body.comment;
+  var date = req.body.date;
+  var postId = req.body.postId;
+
+  database.addComment(name, comment, date, postId, (err, result) => {
+    if (err) {
+      res.status(500).send({ "Error": err.detail });
+
+    } else {
+      res.json({ result: "Successfully added new comment" });
+    }
+  });
+
+});
+
+
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
