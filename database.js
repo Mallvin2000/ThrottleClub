@@ -15,6 +15,7 @@ function connect() {
 function resetTables() {
     const client = connect();//create connection to database
     const dropTables = `
+    DROP TABLE IF EXISTS comments;
     DROP TABLE IF EXISTS posts;
     DROP TABLE IF EXISTS category;
     DROP TABLE IF EXISTS admins;
@@ -57,16 +58,26 @@ function resetTables() {
     `;
 
     const query3 = `
-    CREATE TABLE admins (
-        userId SERIAL PRIMARY KEY,
-        username varchar(50) UNIQUE NOT NULL,
-        password varchar(50) NOT NULL
-    );
+        CREATE TABLE admins (
+            userId SERIAL PRIMARY KEY,
+            username varchar(50) UNIQUE NOT NULL,
+            password varchar(50) NOT NULL
+        );
 `;
 
+    const query4 = `
+        CREATE TABLE comments (
+            commentId SERIAL PRIMARY KEY,
+            name varchar(50) NOT NULL,
+            comment TEXT NOT NULL,
+            date varchar(80) NOT NULL,
+            postId INT REFERENCES posts (postId)
+        );
+    `;
 
-    
-    const query = `${dropTables} ${query1} ${query2} ${query3}`;
+
+
+    const query = `${dropTables} ${query1} ${query2} ${query3} ${query4}`;
 
 
     client.query(query, (err, res) => {
@@ -98,7 +109,7 @@ function adminLogin(username, password, callback) {
     //console.log(query);
 
     const client = connect();
-    client.query(query, [], (err, {rows}) => {
+    client.query(query, [], (err, { rows }) => {
         //console.log(rows.length);
         //console.log(rows);
         if (rows.length == 1) {//username and password combination exists
@@ -117,7 +128,7 @@ function adminLogin(username, password, callback) {
 
 
 function checkForDuplicateUsername(username, callback) {
-        
+
     const query = `SELECT * FROM admins WHERE username = $1`;
     const client = connect();
     client.query(query, [username], (err, { rows }) => {
@@ -160,7 +171,7 @@ function getPosts(callback) {
 }
 
 
-function getPosts2(postId, date, categoryId, limit=10, offset=0, callback) {
+function getPosts2(postId, date, categoryId, limit = 10, offset = 0, callback) {
     let whereClause;
     let i = 1;
     const values = [];
@@ -173,8 +184,8 @@ function getPosts2(postId, date, categoryId, limit=10, offset=0, callback) {
             postId += "";
             values.push(postId);
             whereClause += `postId = $${i++} `
-        } 
-         if (date) {
+        }
+        if (date) {
             date += "";
             values.push(date);
             whereClause += postId ? `AND date = $${i++} ` : `date = $${i++} `;//? is if  condition
@@ -182,10 +193,10 @@ function getPosts2(postId, date, categoryId, limit=10, offset=0, callback) {
         if (categoryId) {
             categoryId += "";
             values.push(categoryId);
-            whereClause += postId || date? `AND categoryId = $${i++} ` : `categoryId = $${i++} `;
+            whereClause += postId || date ? `AND categoryId = $${i++} ` : `categoryId = $${i++} `;
         }
     }
-    
+
     let limitOffsetClause = `LIMIT $${i++} OFFSET $${i++}`;
     values.push(parseInt(limit));//limit is page size/ how many rows you want to show
     values.push(parseInt(offset * limit));//offset is how many rows you want to ignore.   offset = currnt page size multiple delta which keeps track of which page we are on, see mr jeremiha explanation
@@ -277,6 +288,32 @@ function deletePost(postId, callback) {
 }
 
 
+function getAllComments(callback) {
+    const query = `SELECT * FROM comments;`;
+
+    const client = connect();
+    client.query(query, [], (err, { rows }) => {
+        callback(err, rows);
+        client.end();
+    });
+}
+
+
+function addComment(name, comment, date, postId, callback) {
+    let i = 1;
+    const template = `($${i++}, $${i++}, $${i++}, $${i++})`
+    const values = [name, comment, date, postId]
+    const query = `INSERT INTO comments (name, comment, date, postId) VALUES ${template}`;
+    console.log(values, query);
+
+    const client = connect();
+    client.query(query, values, (err, result) => {
+        callback(err, result);
+        client.end();
+    });
+}
+
+
 module.exports = {
     addUser,
     adminLogin,
@@ -291,5 +328,7 @@ module.exports = {
     getPosts2,
     updatePost,
     deletePost,
-    
+    getAllComments,
+    addComment,
+
 }
