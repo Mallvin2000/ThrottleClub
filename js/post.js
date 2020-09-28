@@ -1,7 +1,7 @@
 
 function populatePage(data) {
     $('#post-container').html(data.content);
-    $('head').append(`<link rel="stylesheet" href="css/${data.postid}.css">`);
+    $('head').append(`<link rel="stylesheet" href="css/post-styling/postId-${data.postid}.css">`);
 }
 
 function getPostFromBackend(postId) {

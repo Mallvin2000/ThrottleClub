@@ -23,11 +23,18 @@
 }
 
 
+.category {
+    margin-bottom: 5%;
+}
+
+
 .category-link {
     text-align: center;
     font-size: 25px;
     /* text-decoration: none; */
     color: black;
+    text-decoration: underline;
+    margin-bottom: 5%;
 }
 
 

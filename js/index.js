@@ -14,7 +14,7 @@ function getPostsFromBackend() {
         console.log(response);
         for (let i = 0; i < response.length; i++) {
             $("#posts-wrapper").append("<div class=\"post post" + i + " col-sm-5\"></div>");//append as a child in selected tag
-            $(".post" + i).append("<div class=\"coverImage\"><img class=\"mx-auto d-block img-fluid\" src=\"images/bike.jpg\" width=\"450\" height=\"150\"></div>");//mx-auto d-block these classes are from bootstrap to center the image
+            $(".post" + i).append("<div class=\"coverImage\"><img class=\"mx-auto d-block img-fluid\" src=\"images/" + response[i].coverimage + "\" width=\"450\" height=\"150\"></div>");//mx-auto d-block these classes are from bootstrap to center the image
             //$(".post" + i).append("<div><p>Title: " + response[i].title + "</p></div>");//display property (title) of object in reponse array
             //$(".post" + i).append("<div><p>Date: " + response[i].date + "</p></div>");
             $(".post" + i).append(`
