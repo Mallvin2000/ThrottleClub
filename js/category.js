@@ -10,7 +10,7 @@ const paginationFunction = {
 
 function getPostsInCategoryFromBackend(categoryId) {
     var settings = {
-        "url": "http://localhost:3000/get/category/posts/?categoryId=" + categoryId + "&order=" + paginationQuery.order,
+        "url": "https://throttle-club.herokuapp.com/get/category/posts/?categoryId=" + categoryId + "&order=" + paginationQuery.order,
         "method": "GET",
         "timeout": 0,
         "headers": {
@@ -56,7 +56,7 @@ function registerCategoryId() {
 
 function getCategoriesFromBackend() {
     var settings = {
-        "url": "http://localhost:3000/get/categories",
+        "url": "https://throttle-club.herokuapp.com/get/categories",
         "method": "GET",
         "timeout": 0,
         "headers": {

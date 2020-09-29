@@ -116,7 +116,7 @@ function updateDataInBackend(event) {
     event.preventDefault();
  
     var settings = {
-        "url": "http://localhost:3000/update/post",
+        "url": "https://throttle-club.herokuapp.com/update/post",
         "method": "PUT",
         "timeout": 0,
         "headers": {
@@ -159,7 +159,7 @@ function populateOptions(data) {
                     console.log("deleting" + data[i].postid);
 
                     var settings = {
-                        "url": "http://localhost:3000/delete/post/" + data[i].postid,
+                        "url": "https://throttle-club.herokuapp.com/delete/post/" + data[i].postid,
                         "method": "DELETE",
                         "timeout": 0,
                         "headers": {
@@ -186,7 +186,7 @@ function populateOptions(data) {
             $('#update-' + data[i].postid).on("click", (event) => {
                 console.log("Clicked");
                 var settings = {//contains all the parameters like postman
-                    "url": "http://localhost:3000/get/post/" + data[i].postid,
+                    "url": "https://throttle-club.herokuapp.com/get/post/" + data[i].postid,
                     "method": "GET",
                     "timeout": 0,
                     "headers": {
@@ -302,7 +302,7 @@ function getUserDataFromBackend() {
     var categoryIdFilter = $('#categoryIdFilter').val();
 
     var settings = {
-        "url": "http://localhost:3000/get/posts2?postId=" + postIdFilter + "&date=" + dateFilter + "&categoryId" + categoryIdFilter + "&limit=" + paginationQuery.limit + "&offset=" + paginationQuery.offset,
+        "url": "https://throttle-club.herokuapp.com/get/posts2?postId=" + postIdFilter + "&date=" + dateFilter + "&categoryId" + categoryIdFilter + "&limit=" + paginationQuery.limit + "&offset=" + paginationQuery.offset,
         "method": "GET",
         "timeout": 0,
         "headers": {

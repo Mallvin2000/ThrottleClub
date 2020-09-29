@@ -4,7 +4,7 @@ function sendDataToBackend(event) {
     event.preventDefault();
 
     var settings = {
-        "url": "http://localhost:3000/insert/category",
+        "url": "https://throttle-club.herokuapp.com/insert/category",
         "method": "POST",
         "timeout": 0,
         "headers": {
