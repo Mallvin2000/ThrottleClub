@@ -166,10 +166,10 @@ app.get('/get/categories', (req, res) => {
 });
 
 
-app.get('/get/category/posts/:categoryId', (req, res) => {
-  var categoryId = req.params.categoryId;
-
-  database.getPostsInCategory(categoryId, (err, result) => {
+app.get('/get/category/posts', (req, res) => {
+  //var categoryId = req.params.categoryId;//extracting from req.params 
+ const {categoryId, order} = req.query; //extracting from req.query aka the url
+  database.getPostsInCategory(categoryId, order, (err, result) => {
     if (err) {
       res.status(500).send({ "Error": err.detail });
     } else {
@@ -233,9 +233,10 @@ app.delete('/delete/post/:id', verifyToken, (req, res) => {
 });
 
 
-app.get('/get/comments', (req, res) => {
+app.get('/get/comments/:id', (req, res) => {
+  var postId = req.params.id;
 
-  database.getAllComments((err, result) => {
+  database.getAllComments(postId, (err, result) => {
     if (err) {
       res.status(500).send({ "Error": err.detail });
     } else {
