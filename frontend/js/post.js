@@ -6,7 +6,7 @@ function populatePage(data) {
 
 function getPostFromBackend(postId) {
     var settings = {
-        "url": "http://localhost:3000/get/post/" + postId,
+        "url": "https://throttle-club.herokuapp.com/get/post/" + postId,
         "method": "GET",
         "timeout": 0,
         "headers": {
@@ -35,7 +35,7 @@ function populateCommentSection(data) {
 
 function getCommentsFromBackend(postId) {
     var settings = {
-        "url": "http://localhost:3000/get/comments/" + postId,
+        "url": "https://throttle-club.herokuapp.com/get/comments/" + postId,
         "method": "GET",
         "timeout": 0,
         "headers": {
@@ -63,7 +63,7 @@ function insertNewCommentToBackend(event) {
     var date = new Date();
     var postId = parseInt(window.location.href.split("postId=")[1]);
     var settings = {
-        "url": "http://localhost:3000/insert/comment",
+        "url": "https://throttle-club.herokuapp.com/insert/comment",
         "method": "POST",
         "timeout": 0,
         "headers": {

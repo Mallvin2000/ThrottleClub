@@ -2,7 +2,7 @@ function sendDataToBackend(event) {
     event.preventDefault();
 
     var settings = {
-        "url": "http://localhost:3000/login",//when update button is pressed, it calls this API in app.js which then process it just like postman. only difference is that browser is calling api instead of postman
+        "url": "https://throttle-club.herokuapp.com/login",//when update button is pressed, it calls this API in app.js which then process it just like postman. only difference is that browser is calling api instead of postman
         "method": "POST",
         "timeout": 0,
         "headers": {

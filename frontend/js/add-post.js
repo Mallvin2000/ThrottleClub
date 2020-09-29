@@ -26,7 +26,7 @@ function sendDataToBackend(event) {
     var images = checkImages();
     var categoryId = parseInt($("#category-select option:selected").val());
     var settings = {
-        "url": "http://localhost:3000/insert/post",
+        "url": "https://throttle-club.herokuapp.com/insert/post",
         "method": "POST",
         "timeout": 0,
         "headers": {
