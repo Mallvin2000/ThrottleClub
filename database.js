@@ -15,6 +15,7 @@ function connect() {
 function resetTables() {
     const client = connect();//create connection to database
     const dropTables = `
+    DROP TABLE IF EXISTS likes;
     DROP TABLE IF EXISTS comments;
     DROP TABLE IF EXISTS posts;
     DROP TABLE IF EXISTS category;
@@ -74,6 +75,13 @@ function resetTables() {
             postId INT REFERENCES posts (postId)
         );
     `;
+
+   /*  const query5 = `
+        CREATE TABLE likes (
+            likeId SERIAL PRIMARY KEY,
+            postId INT REFERENCES posts (postId)
+        );
+    `; */
 
 
 
@@ -244,9 +252,17 @@ function getCategories(callback) {
 }
 
 
-function getPostsInCategory(categoryId, callback) {
+function getPostsInCategory(categoryId, order, callback) {
     //const query = `SELECT * FROM posts WHERE categoryId = $1;`;
-    const query = `SELECT P.postId, P.title, P.date, P.author, P.content, P.subContent, P.coverImage, C.name AS categoryName FROM posts P INNER JOIN category C On P.categoryId = $1 and P.categoryId = C.categoryId ORDER BY date desc;`;//joining posts and category table
+    order = parseInt(order);
+    var orderQuery;
+    if (order == 1) {
+        orderQuery = 'ORDER BY date desc';//latest
+    } else if (order == 2) {
+        orderQuery = 'ORDER BY date asc';//oldest
+    }
+
+    const query = `SELECT P.postId, P.title, P.date, P.author, P.content, P.subContent, P.coverImage, C.name AS categoryName FROM posts P INNER JOIN category C On P.categoryId = $1 and P.categoryId = C.categoryId ${orderQuery};`;//joining posts and category table
 
     const client = connect();
     client.query(query, [categoryId], (err, { rows }) => {
@@ -296,11 +312,11 @@ function deletePost(postId, callback) {
 }
 
 
-function getAllComments(callback) {
-    const query = `SELECT * FROM comments;`;
-
+function getAllComments(postId, callback) {
+    const query = `SELECT * FROM comments WHERE postId = $1;`;
+    //console.log(query, postId);
     const client = connect();
-    client.query(query, [], (err, { rows }) => {
+    client.query(query, [postId], (err, { rows }) => {
         callback(err, rows);
         client.end();
     });
