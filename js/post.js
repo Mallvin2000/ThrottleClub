@@ -33,9 +33,9 @@ function populateCommentSection(data) {
 }
 
 
-function getCommentsFromBackend() {
+function getCommentsFromBackend(postId) {
     var settings = {
-        "url": "http://localhost:3000/get/comments",
+        "url": "http://localhost:3000/get/comments/" + postId,
         "method": "GET",
         "timeout": 0,
         "headers": {
@@ -54,6 +54,7 @@ function registerPostId() {
     var postId = window.location.href.split("postId=")[1];
     //console.log(postId);
     getPostFromBackend(postId)
+    getCommentsFromBackend(postId);
 }
 
 
@@ -93,6 +94,6 @@ function registerLeaveCommentForm() {
 
 $(document).ready(function () {//run when document is populated
     registerPostId();
-    getCommentsFromBackend();
+    /* getCommentsFromBackend(); */
     registerLeaveCommentForm();
 });

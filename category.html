@@ -18,10 +18,10 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
 
-        <script src="js/checkLoginState.js"></script>
-        <script src="js/category.js"></script>
+    <script src="js/checkLoginState.js"></script>
+    <script src="js/category.js"></script>
 
-        <link rel="stylesheet" href="css/category.css">
+    <link rel="stylesheet" href="css/category.css">
 
 
 </head>
@@ -46,14 +46,23 @@
 
 
 
-
+    <div class="container-fluid">
+        <div class="sort col-md-3">
+            <select fn="changeOrder" id="sort-order-select" class="custom-select">
+                <option value="1" selected>Most Recent</option>
+                <option value="2">Oldest</option>
+                <option value="2">Most commented</option>
+                <!--need to find the post with the most number of comments-->
+            </select>
+        </div>
+    </div>
 
     <div class="container-fluid">
         <div class="row contents">
             <section class="col-sm-9 posts">
                 <div class="row" id="posts-wrapper">
                     <div class="main-section-title col-sm-12">
-                        
+
                     </div>
 
                 </div>
@@ -64,7 +73,7 @@
                     <div class="category-section-title">
                         <h2 class="text-center">Categories</h2>
                     </div>
-                </div>   
+                </div>
             </section>
         </div>
     </div>
