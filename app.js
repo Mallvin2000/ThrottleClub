@@ -195,6 +195,22 @@ app.post('/insert/category', verifyToken, (req, res) => {
 });
 
 
+app.post('/insert/message', (req, res) => {
+  var name = req.body.name
+  var email = req.body.email
+  var message = req.body.message
+
+  database.addMessage(name, email, message, (err, result) => {
+    if (err) {
+      res.status(500).send({ "Error": err.detail });
+
+    } else {
+      res.json({ result: "Successfully added new message" });
+    }
+  });
+});
+
+
 
 app.put('/update/post', verifyToken, (req, res) => {
   var postId = req.body.id;
