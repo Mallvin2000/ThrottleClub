@@ -2,6 +2,17 @@
 <html lang="en">
 
 <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-179295636-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-179295636-1');
+    </script>
+
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
@@ -60,7 +71,8 @@
                 <select fn="changeOrder" id="sort-order-select" class="custom-select">
                     <option value="1" selected>Most Recent</option>
                     <option value="2">Oldest</option>
-                    <option value="2">Most commented</option><!--need to find the post with the most number of comments-->
+                    <option value="2">Most commented</option>
+                    <!--need to find the post with the most number of comments-->
                 </select>
             </div>
         </div>
@@ -85,7 +97,7 @@
             </div>
         </div>
 
-        
+
 
 
     </main>
