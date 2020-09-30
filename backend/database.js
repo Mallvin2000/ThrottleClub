@@ -76,16 +76,18 @@ function resetTables() {
         );
     `;
 
-   /*  const query5 = `
-        CREATE TABLE likes (
-            likeId SERIAL PRIMARY KEY,
-            postId INT REFERENCES posts (postId)
-        );
-    `; */
+     const query5 = `
+         CREATE TABLE messages (
+             messageId SERIAL PRIMARY KEY,
+             name varchar(50) NOT NULL,
+             email varchar(100) NOT NULL,
+             message TEXT NOT NULL
+         );
+     `;
 
 
 
-    const query = `${dropTables} ${query1} ${query2} ${query3} ${query4}`;
+    const query = `${dropTables} ${query1} ${query2} ${query3} ${query4} ${query5}`;
 
 
     client.query(query, (err, res) => {
@@ -338,6 +340,21 @@ function addComment(name, comment, date, postId, callback) {
 }
 
 
+function addMessage(name, email, message, callback) {
+    let i = 1;
+    const template = `($${i++}, $${i++}, $${i++})`
+    const values = [name, email, message]
+    const query = `INSERT INTO messages (name, email, message) VALUES ${template}`;
+    console.log(values, query);
+
+    const client = connect();
+    client.query(query, values, (err, result) => {
+        callback(err, result);
+        client.end();
+    });
+}
+
+
 module.exports = {
     addUser,
     adminLogin,
@@ -354,5 +371,6 @@ module.exports = {
     deletePost,
     getAllComments,
     addComment,
+    addMessage,
 
 }
